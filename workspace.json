@@ -50,10 +50,132 @@
           }
         }
       }
+    },
+    "tekkon-trial-frontend": {
+      "root": "apps/tekkon-trial-frontend",
+      "sourceRoot": "apps/tekkon-trial-frontend/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/web:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/tekkon-trial-frontend",
+            "index": "apps/tekkon-trial-frontend/src/index.html",
+            "main": "apps/tekkon-trial-frontend/src/main.tsx",
+            "polyfills": "apps/tekkon-trial-frontend/src/polyfills.ts",
+            "tsConfig": "apps/tekkon-trial-frontend/tsconfig.app.json",
+            "assets": [
+              "apps/tekkon-trial-frontend/src/favicon.ico",
+              "apps/tekkon-trial-frontend/src/assets"
+            ],
+            "styles": ["apps/tekkon-trial-frontend/src/styles.scss"],
+            "scripts": [],
+            "webpackConfig": "@nrwl/react/plugins/webpack"
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "apps/tekkon-trial-frontend/src/environments/environment.ts",
+                  "with": "apps/tekkon-trial-frontend/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/web:dev-server",
+          "options": {
+            "buildTarget": "tekkon-trial-frontend:build",
+            "hmr": true
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "tekkon-trial-frontend:build:production",
+              "hmr": false
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/tekkon-trial-frontend/**/*.{ts,tsx,js,jsx}"
+            ]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/tekkon-trial-frontend"],
+          "options": {
+            "jestConfig": "apps/tekkon-trial-frontend/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
+    "tekkon-trial-frontend-e2e": {
+      "root": "apps/tekkon-trial-frontend-e2e",
+      "sourceRoot": "apps/tekkon-trial-frontend-e2e/src",
+      "projectType": "application",
+      "targets": {
+        "e2e": {
+          "executor": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/tekkon-trial-frontend-e2e/cypress.json",
+            "tsConfig": "apps/tekkon-trial-frontend-e2e/tsconfig.e2e.json",
+            "devServerTarget": "tekkon-trial-frontend:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "tekkon-trial-frontend:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/tekkon-trial-frontend-e2e/**/*.{js,ts}"]
+          }
+        }
+      }
     }
   },
   "cli": {
     "defaultCollection": "@nrwl/express"
   },
-  "defaultProject": "tekkon-trial-backend"
+  "defaultProject": "tekkon-trial-backend",
+  "generators": {
+    "@nrwl/react": {
+      "application": {
+        "style": "scss",
+        "linter": "eslint",
+        "strict": true,
+        "babel": true
+      },
+      "component": {
+        "style": "scss"
+      },
+      "library": {
+        "style": "scss",
+        "linter": "eslint",
+        "strict": true
+      }
+    }
+  }
 }

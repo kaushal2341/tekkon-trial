@@ -1,3 +1,6 @@
 module.exports = {
-  projects: ['<rootDir>/apps/tekkon-trial-backend'],
+  projects: [
+    '<rootDir>/apps/tekkon-trial-backend',
+    '<rootDir>/apps/tekkon-trial-frontend',
+  ],
 };

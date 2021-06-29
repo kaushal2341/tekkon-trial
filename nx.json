@@ -29,6 +29,13 @@
   "projects": {
     "tekkon-trial-backend": {
       "tags": []
+    },
+    "tekkon-trial-frontend": {
+      "tags": []
+    },
+    "tekkon-trial-frontend-e2e": {
+      "tags": [],
+      "implicitDependencies": ["tekkon-trial-frontend"]
     }
   }
 }
