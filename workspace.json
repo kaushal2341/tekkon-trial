@@ -1,0 +1,59 @@
+{
+  "version": 2,
+  "projects": {
+    "tekkon-trial-backend": {
+      "root": "apps/tekkon-trial-backend",
+      "sourceRoot": "apps/tekkon-trial-backend/src",
+      "projectType": "application",
+      "targets": {
+        "build": {
+          "executor": "@nrwl/node:build",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/tekkon-trial-backend",
+            "main": "apps/tekkon-trial-backend/src/main.ts",
+            "tsConfig": "apps/tekkon-trial-backend/tsconfig.app.json",
+            "assets": ["apps/tekkon-trial-backend/src/assets"]
+          },
+          "configurations": {
+            "production": {
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/tekkon-trial-backend/src/environments/environment.ts",
+                  "with": "apps/tekkon-trial-backend/src/environments/environment.prod.ts"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "executor": "@nrwl/node:execute",
+          "options": {
+            "buildTarget": "tekkon-trial-backend:build"
+          }
+        },
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["apps/tekkon-trial-backend/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/tekkon-trial-backend"],
+          "options": {
+            "jestConfig": "apps/tekkon-trial-backend/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    }
+  },
+  "cli": {
+    "defaultCollection": "@nrwl/express"
+  },
+  "defaultProject": "tekkon-trial-backend"
+}
