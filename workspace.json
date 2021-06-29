@@ -154,6 +154,27 @@
           }
         }
       }
+    },
+    "ui-elements": {
+      "root": "libs/ui-elements",
+      "sourceRoot": "libs/ui-elements/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/ui-elements/**/*.{ts,tsx,js,jsx}"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/ui-elements"],
+          "options": {
+            "jestConfig": "libs/ui-elements/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
     }
   },
   "cli": {

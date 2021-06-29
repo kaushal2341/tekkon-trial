@@ -36,6 +36,9 @@
     "tekkon-trial-frontend-e2e": {
       "tags": [],
       "implicitDependencies": ["tekkon-trial-frontend"]
+    },
+    "ui-elements": {
+      "tags": []
     }
   }
 }
