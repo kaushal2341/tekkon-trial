@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@tekkon-trial/query-services": ["libs/query-services/src/index.ts"],
       "@tekkon-trial/ui-elements": ["libs/ui-elements/src/index.ts"]
     }
   },

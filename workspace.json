@@ -1,6 +1,27 @@
 {
   "version": 2,
   "projects": {
+    "query-services": {
+      "root": "libs/query-services",
+      "sourceRoot": "libs/query-services/src",
+      "projectType": "library",
+      "targets": {
+        "lint": {
+          "executor": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": ["libs/query-services/**/*.ts"]
+          }
+        },
+        "test": {
+          "executor": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/query-services"],
+          "options": {
+            "jestConfig": "libs/query-services/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      }
+    },
     "tekkon-trial-backend": {
       "root": "apps/tekkon-trial-backend",
       "sourceRoot": "apps/tekkon-trial-backend/src",

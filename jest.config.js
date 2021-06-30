@@ -3,5 +3,6 @@ module.exports = {
     '<rootDir>/apps/tekkon-trial-backend',
     '<rootDir>/apps/tekkon-trial-frontend',
     '<rootDir>/libs/ui-elements',
+    '<rootDir>/libs/query-services',
   ],
 };

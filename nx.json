@@ -27,6 +27,9 @@
     ]
   },
   "projects": {
+    "query-services": {
+      "tags": []
+    },
     "tekkon-trial-backend": {
       "tags": []
     },
