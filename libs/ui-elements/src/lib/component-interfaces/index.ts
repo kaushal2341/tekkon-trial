@@ -1,1 +1,1 @@
-export *  from './ITTableInterface'
+export *  from './ITTableInterface';

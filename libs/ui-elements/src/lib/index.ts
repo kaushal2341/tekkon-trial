@@ -1,2 +1,1 @@
-export { default as TInfiniteScroller} from './TInifiniteScroller';
-export { default as TTable} from './TTable';
+export { default as TTableWithInfiniteScroller } from './TTableWithInfiniteScroller';

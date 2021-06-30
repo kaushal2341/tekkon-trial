@@ -1,14 +1,22 @@
-import {GraphQLID,GraphQLString,GraphQLInt,GraphQLObjectType,GraphQLList,GraphQLNonNull} from 'graphql';
+import {GraphQLID,GraphQLString,GraphQLInt,GraphQLObjectType,GraphQLList,GraphQLNonNull, GraphQLBoolean} from 'graphql';
 import {getDashboardList} from '../services';
+
 const DashType: GraphQLObjectType= new GraphQLObjectType({
-    name: "Dashboard",
+    name: "DashboardData",
     fields: () => ({
       id: { type: GraphQLID },
       name: { type: GraphQLString },
-      age: { type: GraphQLInt },
+      age: { type: GraphQLInt }
     }),
   });
-
+  const DashTypeList:GraphQLObjectType = new GraphQLObjectType({
+    name:'Dashboard',
+    fields:()=>({
+    totalItems:{type:GraphQLInt},
+    list:{type:new GraphQLList(DashType)},
+    hasNextPage:{type:GraphQLBoolean}
+    })
+    })
 
 export const DashRootQueries:GraphQLObjectType = new GraphQLObjectType({
     name: "RootQueryType",
@@ -22,7 +30,7 @@ export const DashRootQueries:GraphQLObjectType = new GraphQLObjectType({
                 type:new GraphQLNonNull(GraphQLInt)
             }
         },
-        type: new GraphQLList(DashType),
+        type: DashTypeList,
         resolve(parent, args) {
           const limit = args.limit||5;
           const offset= args.offset||1;
