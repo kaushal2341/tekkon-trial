@@ -10,7 +10,7 @@ const DashType: GraphQLObjectType= new GraphQLObjectType({
   });
 
 
-export const DashRootQueries = new GraphQLObjectType({
+export const DashRootQueries:GraphQLObjectType = new GraphQLObjectType({
     name: "RootQueryType",
     fields: {
        dashboard: {
