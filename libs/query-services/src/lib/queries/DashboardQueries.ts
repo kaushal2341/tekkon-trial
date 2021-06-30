@@ -1,7 +1,14 @@
 import {gql} from  "@apollo/client";
 export const listDashboardQuery = gql`
-{dashboard($limit:Number!,$offset:Number!){
-    name,
-    id
+query dashboard($limit:Int!,$offset:Int!){
+    dashboard(limit:$limit,offset:$offset){
+      totalItems,
+      hasNextPage,
+      list{
+        name,
+        age,
+        id
+      }
+    }
   }
-}`
+`

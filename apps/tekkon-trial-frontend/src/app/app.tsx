@@ -1,22 +1,18 @@
-import styles from './app.module.scss';
+import React from 'react';
+import '../styles.scss'
+import { Route,Switch } from 'react-router-dom';
+import { routes } from './routes';
 
-import { ReactComponent as Logo } from './logo.svg';
-import star from './star.svg';
-
-import { Route, Link } from 'react-router-dom';
-import {TTableWithInfiniteScroller} from '@tekkon-trial/ui-elements'
-
-export function App() {
+export function App(props:{}) {
   return (
-    <div className={styles.app}>
-      <header className="flex">
-        <Logo width="75" height="75" />
-        <h1>Welcome to tekkon-trial-frontend!</h1>
-      </header>
-      <main>
-       {/* <TTableWithInfiniteScroller/> */}
-      </main>
-    </div>
+    
+    <Switch>
+      {routes.map((route, index) => {
+        return (
+          <Route key={index} path={route.path} component={route.component} exact/>
+        );
+      })}
+    </Switch>
   );
 }
 

@@ -1,5 +1,4 @@
 import React from 'react';
-import 'react-virtualized/style.css';
 import { Column, Table, AutoSizer, InfiniteLoader } from 'react-virtualized';
 import { ITTableInterfaceProps } from '../component-interfaces';
 
@@ -42,7 +41,7 @@ const TTableWithInfiniteScroller = (props: ITTableInterfaceProps) => {
                   <Column
                     label={col.label}
                     dataKey={col.dataKey}
-                    width={col.width}
+                    width={width*col.width}
                   />
                 ))}
               </Table>
