@@ -1,6 +1,7 @@
-import React, { FunctionComponent } from 'react';
 import {Dashboard} from './IDashboardList';
 export type ITableColumn={
+ width:number,
+ dataKey:string,
  label:string
 
 }
@@ -16,12 +17,3 @@ export type ITTableInterfaceProps={
  
  }
 
- export type ITTableNewInterfaceProps={
-    hasNextPage:boolean,
-    list:Array<Dashboard>,
-    totalItems:number,
-    endMessage:React.ReactNode,
-    loader:React.ReactNode,
-    loadMoreRows:Function,
-    column:Array<ITableColumn>,
-}

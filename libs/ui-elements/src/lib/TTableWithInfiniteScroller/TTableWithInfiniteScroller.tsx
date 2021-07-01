@@ -1,54 +1,59 @@
 import React from 'react';
-import { Column, Table, AutoSizer, InfiniteLoader } from 'react-virtualized';
-import { ITTableInterfaceProps } from '../component-interfaces';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { ITTableNewInterfaceProps } from '../component-interfaces';
+// import { Table } from 'react-bootstrap';
 
-const TTableWithInfiniteScroller = (props: ITTableInterfaceProps) => {
+const TTableWithInfiniteScroller = (props: ITTableNewInterfaceProps) => {
   const {
     list,
     loadMoreRows,
     totalItems,
+    endMessage,
+    loader,
+    hasNextPage,
     column,
-    headerHeight,
-    height,
-    rowHeight,
   } = props;
-  const loadNextPage = async () => {
-    await loadMoreRows();
+  const loadNextPage =  () => {
+    console.log("======Next Page");
+     loadMoreRows();
   };
-
+  console.log('=====totalItems', hasNextPage);
+  console.log('=========list', list);
   return (
-    <div className="container">
-      <InfiniteLoader
-        isRowLoaded={({ index }) => !!list[index]}
-        loadMoreRows={loadNextPage}
-        rowCount={totalItems}
-      >
-        {({ onRowsRendered, registerChild }) => (
-          <AutoSizer>
-            {({ width }) => (
-              <Table
-                ref={registerChild}
-                onRowsRendered={onRowsRendered}
-                rowClassName="table-row"
-                headerHeight={headerHeight || 40}
-                width={width}
-                height={height || 300}
-                rowHeight={rowHeight || 40}
-                rowCount={list.length}
-                rowGetter={({ index }) => list[index]}
-              >
-                {column.map((col) => (
-                  <Column
-                    label={col.label}
-                    dataKey={col.dataKey}
-                    width={width*col.width}
-                  />
-                ))}
-              </Table>
-            )}
-          </AutoSizer>
-        )}
-      </InfiniteLoader>
+    <div>
+    <InfiniteScroll
+      dataLength={list.length}
+      next={loadNextPage}
+      hasMore={hasNextPage}
+      loader={loader}
+      endMessage={endMessage}
+      initialScrollY={20}
+      // refreshFunction={loadNextPage}
+      // pullDownToRefresh
+    
+      height="20"
+    >
+      <table className="table table-sm table-dark table-striped table-hover">
+        <thead>
+          <tr>
+            {column.map((col, index) => (
+              <th key={col.label}>{col.label}</th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {list.map((data) => {
+            return (
+              <tr key={data.id}>
+                <td>{data.id}</td>
+                <td>{data.name}</td>
+                <td>{data.age}</td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
+    </InfiniteScroll>
     </div>
   );
 };

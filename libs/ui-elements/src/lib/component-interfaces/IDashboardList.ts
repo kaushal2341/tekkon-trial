@@ -1,7 +1,7 @@
 export type Dashboard = {
     id:string,
     name:string,
-    age:string
+    age:number
 }
 export type ListType ={
     list:[Dashboard],

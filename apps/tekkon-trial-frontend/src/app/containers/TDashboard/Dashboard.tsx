@@ -9,13 +9,17 @@ import { useLazyQuery } from '@apollo/client';
 
 const TDashboard = (props:{}) => {
   const [pagination, setPagination] = useState({
-    limit: 5,
+    limit: 20,
     offset: 1,
   });
-  const [doRequest, { loading, data,called,error }] = useLazyQuery(
+
+  // const [list, setList] = useState([]);
+
+  const [doRequest, { loading, data,called,error,fetchMore}] = useLazyQuery(
     DashboardQueries.listDashboardQuery
   );
 
+  let personListData = data?.dashboard||null;
 
   useEffect(() => {
     doRequest({
@@ -24,39 +28,51 @@ const TDashboard = (props:{}) => {
             offset: pagination.offset,
         },
       });
+      // setList(data?.dashboard.list||[])
   }, []);
 
   const onChangePagination = () => {
-    setPagination({ ...pagination, offset: pagination.offset + 1 });
+    if(fetchMore){
+    fetchMore({
+      variables: {
+        limit: pagination.limit,
+        offset: pagination.offset+1,
+      },
+      updateQuery: (previousResult, { fetchMoreResult }) => {
+        if (!fetchMoreResult) return previousResult;
+        return Object.assign({}, previousResult, {
+    
+            ...previousResult.dashboard,
+            dashboard: {...previousResult.dashboard, ...fetchMoreResult.dashboard}
+          
+        });
+      }
+    });
+   }
+    setPagination({...pagination,offset:pagination.offset+1})
   };
 
-  useEffect(() => {
-    doRequest({
-        variables: {
-          limit: pagination.limit,
-          offset: pagination.offset,
-        },
-      });
-  }, [pagination.offset]);
   console.log('=====offset',pagination.offset);
   console.log('========isError', error);
   console.log('======List', data);
-  let personListData = data?.dashboard||null;
+
   return (
     <div>
       {loading ? (
         <p>Loading.....</p>
       ) : error ? (
         <p>Something Error</p>
-      ) :personListData? (
+      ) :personListData?.list?.length? (
         <TTableWithInfiniteScroller
           column={DashColumn}
           hasNextPage={personListData.hasNextPage}
           list={personListData.list}
-          loadMoreRows={()=>onChangePagination()}
+          loadMoreRows={onChangePagination}
           totalItems={personListData.totalItems}
+          loader={<p>Loading...</p>}
+          endMessage={<p>Nothing to load...</p>}
         />
-        // <h1>hello</h1>
+       
       ):  <p>Loading.....</p>}
     </div>
   );

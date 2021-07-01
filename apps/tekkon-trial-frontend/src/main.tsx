@@ -1,7 +1,7 @@
 import { StrictMode } from 'react';
 import * as ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-
+import 'bootstrap/dist/css/bootstrap.min.css';
 import App from './app/app';
 import {
   ApolloClient,
