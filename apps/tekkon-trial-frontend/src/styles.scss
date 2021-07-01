@@ -1,24 +1,20 @@
-// table ,tr td{
-//    border:1px solid black;
-//    overflow:auto;
-// }
-// table{
-//    overflow-y:auto ;
-//    height: 20;
-// }
-// tbody {
-//    display:block;
-//    height:50px;
-//    overflow:auto;
-// }
-// thead, tbody tr {
-//    display:table;
-//    width:100%;
-//    table-layout:fixed;
-// }
-// thead {
-//    width: calc( 100% - 1em )
-// }
-// table {
-//    width:400px;
-// }
+table ,tr td{
+   border:1px solid black;
+   overflow:auto;
+}
+tbody {
+   display:block;
+   height:200px;
+   overflow:auto;
+}
+thead, tbody tr {
+   display:table;
+   width:100%;
+   table-layout:fixed;
+}
+thead {
+   width: calc( 100% - 1em )
+}
+table {
+   width:400px;
+}
