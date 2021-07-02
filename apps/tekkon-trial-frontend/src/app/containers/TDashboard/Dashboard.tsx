@@ -3,14 +3,17 @@ import { DashboardQueries } from '@tekkon-trial/query-services';
 import {
   TTableWithInfiniteScroller,
   DashColumn,
+  TError,
+  TLoading,
 } from '@tekkon-trial/ui-elements';
 
 import { useQuery } from '@apollo/client';
 
 const TDashboard = () => {
   const [list, setList] = useState([]);
-  // const [previousList, setPreviousList] = useState([]);
   const [scrollPosition, setScrollPosition] = useState(0);
+  // const [hasNextPage,setHasNextPage] = useState(false);
+  // const [totalItems,setTotalItems] = useState(0)
   const [pagination, setPagination] = useState({
     limit: 6,
     offset: 1,
@@ -28,19 +31,11 @@ const TDashboard = () => {
   let personListData = data?.dashboard || null;
 
   const onChangeScrollPosition = (e: any) => {
-    // console.log('========event', e);
-    // console.log(e.currentTarget);
     let position = 0;
-    // let offsetHeight=0;
     let scrollHeight = 0;
-    // let bounding=0;
-    // let actualOffset=0
     if (e.currentTarget) {
       position = e.currentTarget?.clientHeight;
       scrollHeight = e.currentTarget?.scrollHeight;
-      // offsetHeight=e.currentTarget?.scrollTop;
-      // bounding= e.currentTarget?.getBoundingClientRect().top
-      // actualOffset=e.currentTarget?.offsetHeight
     }
     const totalPosition: number = scrollHeight - position;
 
@@ -61,6 +56,10 @@ const TDashboard = () => {
       });
 
       const dashList: [] = data?.dashboard.list || [];
+      // const hasNextPage = data?.dashboard?.hasNextPage||false;
+      // const totalItems = data?.dashboard?.totalItems||0;
+      // setHasNextPage(hasNextPage)
+      // setTotalItems(totalItems)
       setList((previousList) => [...previousList, ...dashList]);
       const body = document.getElementById('tableBody');
       if (body) {
@@ -76,10 +75,10 @@ const TDashboard = () => {
   return (
     <div>
       {loading ? (
-        <p>Loading.....</p>
+      <TLoading/>
       ) : error ? (
-        <p>Something Error</p>
-      ) : list?.length ? (
+        <TError message={"Something Error"} />
+      ) :list?.length ? (
         <TTableWithInfiniteScroller
           column={DashColumn}
           hasNextPage={personListData.hasNextPage}
@@ -90,9 +89,7 @@ const TDashboard = () => {
           endMessage={<p>Nothing to load...</p>}
           onChangeScroll={onChangeScrollPosition}
         />
-      ) : (
-        <p>Loading.....</p>
-      )}
+      ):<TLoading/>}
     </div>
   );
 };

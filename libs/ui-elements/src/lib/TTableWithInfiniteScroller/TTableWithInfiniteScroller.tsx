@@ -15,11 +15,8 @@ const TTableWithInfiniteScroller = (props: ITTableInterfaceProps) => {
     onChangeScroll
   } = props;
   const loadNextPage = () => {
-    console.log('======Next Page');
     loadMoreRows();
   };
-  console.log('=====totalItems', hasNextPage);
-  console.log('=========list', list);
   return (
     <div>
       <table

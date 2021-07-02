@@ -1,7 +1,7 @@
-import loadable from "@loadable/component";
-const Loading= ()=><div>Loading...</div>
+import loadable from '@loadable/component';
+import { TLoading } from '@tekkon-trial/ui-elements';
 const TDashboard = loadable(() => import('./containers/TDashboard'), {
-    fallback: <Loading/>,
+  fallback: <TLoading/>,
 });
 
 export const routes = [
