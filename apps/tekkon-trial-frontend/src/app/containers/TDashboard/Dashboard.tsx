@@ -7,47 +7,7 @@ import {
 
 import { useQuery } from '@apollo/client';
 
-// class TDashboard extends PureComponent{
-//   state={
-//     isLoading:false,
-//     error:'',
-//     list:[],
-//     hasNextPage:true,
-//     totalItems:0
-//   }
-//   onChangePagination =async () => {
-
-//   }
-//   componentDidMount(){
-//    console.log("======this.props",this.props)
-//   }
-//   render(){
-//     return(
-//       <div>
-//             {/* {loading ? (
-//               <p>Loading.....</p>
-//             ) : error ? (
-//               <p>Something Error</p>
-//             ) :list?.length? (
-//               <TTableWithInfiniteScroller
-//                 column={DashColumn}
-//                 hasNextPage={personListData.hasNextPage}
-//                 list={list}
-//                 loadMoreRows={onChangePagination}
-//                 totalItems={personListData.totalItems}
-//                 loader={<p>Loading...</p>}
-//                 endMessage={<p>Nothing to load...</p>}
-//               />
-
-//             ):  <p>Loading.....</p>} */}
-//             Hello
-//           </div>
-//     )
-//   }
-// }
 const TDashboard = () => {
- 
-
   const [list, setList] = useState([]);
   const [previousList, setPreviousList] = useState([]);
   const [pagination, setPagination] = useState({
@@ -61,11 +21,6 @@ const TDashboard = () => {
         limit: pagination.limit,
         offset: pagination.offset,
       }
-      // onCompleted:(data)=>{
-      //   setList(data?.dashboard.list||list);
-      //   return data;
-      //   // setPreviousList(data?.dashboard.list||[])
-      // }
     }
   );
   
