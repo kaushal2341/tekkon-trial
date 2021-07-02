@@ -24,4 +24,5 @@ export type ITableColumn={
     loader:React.ReactNode,
     loadMoreRows:Function,
     column:Array<ITableColumn>,
+    onChangeScroll:Function
 }

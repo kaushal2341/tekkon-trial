@@ -12,6 +12,7 @@ const TTableWithInfiniteScroller = (props: ITTableInterfaceProps) => {
     loader,
     hasNextPage,
     column,
+    onChangeScroll
   } = props;
   const loadNextPage = () => {
     console.log('======Next Page');
@@ -34,7 +35,8 @@ const TTableWithInfiniteScroller = (props: ITTableInterfaceProps) => {
           height={'200px'}
           scrollableTarget="scrollTable"
           // initialScrollY={10}
-          // onScroll={(e)=>{e.stopPropagation()}}
+         // onScroll={(e)=>onChangeScroll(e)}
+          
         >
           <thead>
             <tr>
@@ -43,7 +45,7 @@ const TTableWithInfiniteScroller = (props: ITTableInterfaceProps) => {
               ))}
             </tr>
           </thead>
-          <tbody>
+          <tbody id="tableBody" onScroll={(e)=>onChangeScroll(e)}>
             {list.map((data) => {
               return (
                 <tr key={data.id}>

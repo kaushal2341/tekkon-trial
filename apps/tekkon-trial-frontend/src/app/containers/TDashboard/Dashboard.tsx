@@ -9,7 +9,8 @@ import { useQuery } from '@apollo/client';
 
 const TDashboard = () => {
   const [list, setList] = useState([]);
-  const [previousList, setPreviousList] = useState([]);
+  // const [previousList, setPreviousList] = useState([]);
+  const [scrollPosition, setScrollPosition] = useState(0);
   const [pagination, setPagination] = useState({
     limit: 6,
     offset: 1,
@@ -20,45 +21,59 @@ const TDashboard = () => {
       variables: {
         limit: pagination.limit,
         offset: pagination.offset,
-      }
+      },
     }
   );
-  
 
   let personListData = data?.dashboard || null;
 
-  useEffect(()=>{
+  const onChangeScrollPosition = (e: any) => {
+    // console.log('========event', e);
+    // console.log(e.currentTarget);
+    let position = 0;
+    // let offsetHeight=0;
+    let scrollHeight = 0;
+    // let bounding=0;
+    // let actualOffset=0
+    if (e.currentTarget) {
+      position = e.currentTarget?.clientHeight;
+      scrollHeight = e.currentTarget?.scrollHeight;
+      // offsetHeight=e.currentTarget?.scrollTop;
+      // bounding= e.currentTarget?.getBoundingClientRect().top
+      // actualOffset=e.currentTarget?.offsetHeight
+    }
+    const totalPosition: number = scrollHeight - position;
 
-  })
-
-  const onChangePagination = async () => {
-      setPagination({ limit:pagination.limit, offset: pagination.offset + 1 });
-    
+    setScrollPosition(totalPosition);
   };
 
-  const callApi = async()=>{
+  const onChangePagination = async () => {
+    setPagination({ limit: pagination.limit, offset: pagination.offset + 1 });
+  };
+
+  const callApi = async () => {
     if (fetchMore) {
-     const {data}= await fetchMore({
+      const { data } = await fetchMore({
         variables: {
           limit: pagination.limit,
           offset: pagination.offset,
-        }
+        },
       });
       // setPagination({ limit:pagination.limit, offset: pagination.offset + 1 });
-      const dashList:[]= data?.dashboard.list || [];
-      setList([...list,...dashList])
-      setPreviousList([...previousList,...dashList]);
-      
+      const dashList: [] = data?.dashboard.list || [];
+      setList((previousList) => [...previousList, ...dashList]);
+      // window.scrollTo(0,scrollPosition)
+      const body = document.getElementById('tableBody');
+      if (body) {
+        body.scrollTo(0, scrollPosition);
+      }
+      // setPreviousList([...previousList,...dashList]);
     }
-  }
-   
-  useEffect(()=>{
-   callApi()
-  },[pagination.offset])
+  };
 
-  console.log('=====offset', pagination.offset);
-  console.log('========isError', error);
-  console.log('======List', list);
+  useEffect(() => {
+    callApi();
+  }, [pagination.offset]);
 
   return (
     <div>
@@ -75,6 +90,7 @@ const TDashboard = () => {
           totalItems={personListData.totalItems}
           loader={<p>Loading...</p>}
           endMessage={<p>Nothing to load...</p>}
+          onChangeScroll={onChangeScrollPosition}
         />
       ) : (
         <p>Loading.....</p>
