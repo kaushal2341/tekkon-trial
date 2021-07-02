@@ -59,15 +59,13 @@ const TDashboard = () => {
           offset: pagination.offset,
         },
       });
-      // setPagination({ limit:pagination.limit, offset: pagination.offset + 1 });
+
       const dashList: [] = data?.dashboard.list || [];
       setList((previousList) => [...previousList, ...dashList]);
-      // window.scrollTo(0,scrollPosition)
       const body = document.getElementById('tableBody');
       if (body) {
         body.scrollTo(0, scrollPosition);
       }
-      // setPreviousList([...previousList,...dashList]);
     }
   };
 
