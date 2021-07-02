@@ -85,8 +85,8 @@ const TDashboard = () => {
           list={list}
           loadMoreRows={onChangePagination}
           totalItems={personListData.totalItems}
-          loader={<p>Loading...</p>}
-          endMessage={<p>Nothing to load...</p>}
+          loader={<TLoading/>}
+          endMessage={<TError message={"Nothing To Load"}/>}
           onChangeScroll={onChangeScrollPosition}
         />
       ):<TLoading/>}
